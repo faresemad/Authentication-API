@@ -1,0 +1,12 @@
+Pillow==10.1.0  # https://github.com/python-pillow/Pillow
+
+# Django
+# ------------------------------------------------------------------------------
+django==5.0.3  # pyup: < 5.0  # https://www.djangoproject.com/
+django-environ==0.11.2  # https://github.com/joke2k/django-environ
+# Django REST Framework
+djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework
+# DRF-spectacular for api documentation
+drf-spectacular==0.26.5  # https://github.com/tfranzel/drf-spectacular
+# Django CORS headers
+django-cors-headers==4.3.1  # https://github.com/adamchainz/django-cors-headers

@@ -1,0 +1,38 @@
+version: "3"
+
+volumes:
+  authenticate_postgres_data: {}
+  authenticate_postgres_data_backups: {}
+  authenticate_django_media: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    image: authenticate_django
+    container_name: authenticate_django
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.postgres
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/postgres/Dockerfile
+    image: authenticate_production_postgres
+    container_name: authenticate_postgres
+    volumes:
+      - authenticate_postgres_data:/var/lib/postgresql/data
+      - authenticate_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.postgres
