@@ -4,7 +4,6 @@ import string
 from django.contrib.auth import get_user_model, login, logout
 from django.core.mail import send_mail
 from rest_framework import mixins, status, viewsets
-from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -25,7 +24,6 @@ class Login(mixins.CreateModelMixin, viewsets.GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data["user"]
-            token, _ = Token.objects.get_or_create(user=user)
             if user is not None and user.email_comfirmed:
                 login(request, user)
                 response_data = {
@@ -33,7 +31,6 @@ class Login(mixins.CreateModelMixin, viewsets.GenericViewSet):
                     "success": "Login successful",
                 }
                 response = Response(response_data, status=status.HTTP_200_OK)
-                response["Authorization"] = f"Token {token.key}"
                 return response
             elif user is not None and not user.email_comfirmed:
                 return Response(
@@ -91,7 +88,7 @@ class SignUp(mixins.CreateModelMixin, viewsets.GenericViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Logout(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class Logout(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
