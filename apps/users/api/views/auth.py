@@ -74,7 +74,6 @@ class SignUp(mixins.CreateModelMixin, viewsets.GenericViewSet):
             if user:
                 return Response({"error": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
             user = serializer.save()
-            Token.objects.create(user=user)
             activation_code = ActivationCode(user=user)
             activation_code.create_activation_code()
             # Send Email

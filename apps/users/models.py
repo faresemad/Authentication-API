@@ -37,7 +37,7 @@ class ActivationCode(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user.email} - {self.code}"
+        return f"{self.user.email}"
 
     def create_activation_code(self):
         self.activation_code = randint(100000, 999999)
