@@ -3,6 +3,7 @@ import string
 
 from django.contrib.auth import get_user_model, login, logout
 from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
 from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -10,6 +11,8 @@ from rest_framework.response import Response
 from apps.users.api.serializers.auth import LoginSerializer, SignUpSerializer
 from apps.users.api.serializers.validation import (
     AccountActivationSerializer,
+    EmailChangeSerializer,
+    EmailChangeVerifySerializer,
     PasswordChangeSerializer,
     PasswordResetSerializer,
     PasswordResetVerifySerializer,
@@ -161,4 +164,55 @@ class PasswordChange(mixins.CreateModelMixin, viewsets.GenericViewSet):
             user.set_password(new_password)
             user.save()
             return Response({"success": "Password changed successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmailChange(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = EmailChangeSerializer
+
+    def send_email_change_confirmed(self, user):
+        code = get_random_string(length=6)
+        user.email_verification_code = code
+        user.save()
+
+        subject = "Email Change"
+        message = f"Your email change code is {code}"
+        from_email = "<my email>"
+        to_email = [user.email]
+        try:
+            send_mail(subject, message, from_email, to_email, fail_silently=True)
+        except Exception:
+            return Response({"error": "Error sending email"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def create(self, request, *args, **kwargs):
+        serializer = EmailChangeSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            email = serializer.validated_data["email"]
+            if get_user_model().objects.filter(email=email).exists():
+                return Response({"error": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
+            elif user.email == email:
+                return Response({"error": "Email same as current email"}, status=status.HTTP_400_BAD_REQUEST)
+            self.send_email_change_confirmed(user)
+            return Response({"success": "Email change code sent to email"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmailChangeVerify(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = EmailChangeVerifySerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            code = serializer.validated_data["code"]
+            new_email = serializer.validated_data["new_email"]
+            if user.email_verification_code != code:
+                return Response({"error": "Invalid code"}, status=status.HTTP_400_BAD_REQUEST)
+            user.email = new_email
+            user.email_verification_code = None
+            user.save()
+            return Response({"success": "Email changed successfully"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
