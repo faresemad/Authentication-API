@@ -11,3 +11,8 @@ urlpatterns = [
 urlpatterns += [
     path(f"{settings.API_PREFIX}users/", include("apps.users.api.urls")),
 ]
+
+# API patterns for Third Party Apps
+urlpatterns += [
+    path("accounts/", include("allauth.urls")),
+]
