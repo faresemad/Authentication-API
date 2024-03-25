@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 # API patterns for Admin
 urlpatterns = [
@@ -15,4 +16,14 @@ urlpatterns += [
 # API patterns for Third Party Apps
 urlpatterns += [
     path("accounts/", include("allauth.urls")),
+]
+
+# API patterns for Spectacular
+urlpatterns += [
+    path(f"{settings.API_PREFIX}schema/", SpectacularAPIView.as_view(), name="api-schema"),
+    path(
+        f"{settings.API_PREFIX}docs/",
+        SpectacularSwaggerView.as_view(url_name="api-schema"),
+        name="api-docs",
+    ),
 ]
