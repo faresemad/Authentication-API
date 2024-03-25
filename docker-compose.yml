@@ -18,6 +18,7 @@ services:
       - .:/app:z
     env_file:
       - ./.envs/.django
+      - ./.envs/.env
       - ./.envs/.postgres
     expose:
       - 8000
