@@ -1,8 +1,6 @@
 # Authentication-API
 
-Build an Authentication API with Django
-
-Welcome to the Authentication API project. This project is a simple API that allows users to register, login, logout, change password, reset password, change email, and verify email. The API is built with Django and Django Rest Framework. The API is built with the following features:
+Welcome to the Authentication API project. This project is a simple API that allows users to register, login, logout, change password, reset password, change email, and verify email. The API is built with Django and Django Rest Framework.
 
 The API is built with the following technologies:
 
