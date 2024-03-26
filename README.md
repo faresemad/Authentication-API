@@ -1,5 +1,11 @@
 # Authentication-API
 
+[![Account: LinkedIn](https://img.shields.io/badge/Fares%20Emad-LinkedIn-0077b5)](https://www.linkedin.com/in/faresemad/)
+[![Account: Facebook](https://img.shields.io/badge/Fares%20Emad-Facebook-3B5998)](https://www.facebook.com/faresemadx)
+[![Account: Twitter](https://img.shields.io/badge/Fares%20Emad-Twitter-0084b4)](https://twitter.com/faresemadx)
+[![Account: Instagram](https://img.shields.io/badge/Fares%20Emad-Instagram-966842)](https://www.instagram.com/faresemadx/)
+[![Account: GitHub](https://img.shields.io/badge/Fares%20Emad-GitHub-2b3137)](https://www.github.com/faresemad/)
+
 Welcome to the Authentication API project. This project is a simple API that allows users to register, login, logout, change password, reset password, change email, and verify email. The API is built with Django and Django Rest Framework.
 
 The API is built with the following technologies:
