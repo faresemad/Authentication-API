@@ -92,7 +92,7 @@ you can access the social endpoints on your browser by visiting the following UR
 - Google: `http://localhost:8000/api/auth/o/google-oauth2/?redirect_uri=http://localhost:8000/api/social-auth/complete/google-oauth2/`
    - Notes:
         - You need to set redirect URI in the Google Developer Console to `http://localhost:8000/api/social-auth/complete/google-oauth2/`
-        - You need to set the following environment variables in the `.env` file:
+        - You need to set the following environment variables in the `.env` (this file must be in `.envs/` directory) file:
             - `SOCIAL_AUTH_GOOGLE_OAUTH2_KEY`
             - `SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET`
         - You need to set the following Settings in Djoser Settings:
