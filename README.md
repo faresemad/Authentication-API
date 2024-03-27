@@ -96,4 +96,14 @@ you can access the social endpoints on your browser by visiting the following UR
             - `SOCIAL_AUTH_GOOGLE_OAUTH2_KEY`
             - `SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET`
         - You need to set the following Settings in Djoser Settings:
-            "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://localhost:8000/api/social-auth/complete/google-oauth2/"]
+            ```python
+                DJOSER = {
+                    # ...
+                    "LOGIN_FIELD": "email",
+                    "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
+                    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
+                        "http://localhost:8000/api/social-auth/complete/google-oauth2/",
+                    ],
+                    # ...
+                }
+            ```
