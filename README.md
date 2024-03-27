@@ -12,7 +12,8 @@ The API is built with the following technologies:
 
 - Django
 - Django Rest Framework
-- Django All Auth
+- Djoser
+- Social_django
 
 The API is built with the following features:
 
