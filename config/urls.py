@@ -14,7 +14,10 @@ urlpatterns += [
 ]
 
 # API patterns for Third Party Apps
-urlpatterns += []
+urlpatterns += [
+    path(f"{settings.API_PREFIX}auth/", include("djoser.social.urls")),
+    path(f"{settings.API_PREFIX}social-auth/", include("social_django.urls", namespace="social")),
+]
 
 # API patterns for Spectacular
 urlpatterns += [
