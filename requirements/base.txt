@@ -10,3 +10,17 @@ djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework
 drf-spectacular==0.26.5  # https://github.com/tfranzel/drf-spectacular
 # Django CORS headers
 django-cors-headers==4.3.1  # https://github.com/adamchainz/django-cors-headers
+# Added By Fares
+djoser==2.2.2
+idna==3.6
+oauthlib==3.2.2
+pycparser==2.21
+PyJWT==2.8.0
+python3-openid==3.2.0
+requests==2.31.0
+requests-oauthlib==2.0.0
+social-auth-app-django==5.4.0
+social-auth-core==4.5.3
+sqlparse==0.4.4
+tzdata==2024.1
+urllib3==2.2.1

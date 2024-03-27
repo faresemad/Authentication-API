@@ -14,9 +14,7 @@ urlpatterns += [
 ]
 
 # API patterns for Third Party Apps
-urlpatterns += [
-    path("accounts/", include("allauth.urls")),
-]
+urlpatterns += []
 
 # API patterns for Spectacular
 urlpatterns += [
