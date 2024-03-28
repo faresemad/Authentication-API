@@ -150,4 +150,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name", "last_name"]
 
-LOGIN_REDIRECT_URL = "/api/users/"
+LOGIN_REDIRECT_URL = "/api/users/account/me/"
