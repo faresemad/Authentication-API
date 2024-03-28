@@ -23,3 +23,11 @@ class Account(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.Gener
 
     def retrieve(self, request, *args, **kwargs):
         return Response(ProfileSerializer(self.get_object()).data)
+
+    def list(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.action == "update" or self.action == "partial_update":
+            return ProfileChangeSerializer
+        return ProfileSerializer
