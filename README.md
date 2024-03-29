@@ -108,3 +108,21 @@ you can access the social endpoints on your browser by visiting the following UR
                     # ...
                 }
             ```
+
+- Twitter: `http://localhost:8000/api/auth/o/twitter/?redirect_uri=http://localhost:8000/api/social-auth/complete/twitter/`
+   - Notes:
+        - You need to set redirect URI in the Twitter Developer Portal to `http://localhost:8000/api/social-auth/complete/twitter/`
+        - You need to set the following environment variables in the `.env` (this file must be in `.envs/` directory) file:
+            - `SOCIAL_AUTH_TWITTER_KEY`
+            - `SOCIAL_AUTH_TWITTER_SECRET`
+        - You need to set the following Settings in Djoser Settings:
+            ```python
+                DJOSER = {
+                    # ...
+                    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
+                        # ...
+                        "http://localhost:8000/api/social-auth/complete/twitter/",
+                    ],
+                    # ...
+                }
+            ```
