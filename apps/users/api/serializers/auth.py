@@ -37,3 +37,7 @@ class SignUpSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = get_user_model().objects.create_user(**validated_data)
         return user
+
+
+class LogoutSerializer(serializers.Serializer):
+    pass  # No fields needed since it's just for logout

@@ -60,3 +60,6 @@ set-backup:
 
 get-media-files:
 	docker cp $(shell docker-compose -f $(COMPOSE_FILE) ps -q django):/app/media/ .
+
+check-deploy:
+	docker-compose -f $(COMPOSE_FILE) run --rm django python manage.py check --deploy

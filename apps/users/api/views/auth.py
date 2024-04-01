@@ -8,7 +8,7 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.users.api.serializers.auth import LoginSerializer, SignUpSerializer
+from apps.users.api.serializers.auth import LoginSerializer, LogoutSerializer, SignUpSerializer
 from apps.users.api.serializers.validation import (
     AccountActivationSerializer,
     EmailChangeSerializer,
@@ -92,6 +92,7 @@ class SignUp(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 
 class Logout(viewsets.ViewSet):
+    serializer_class = LogoutSerializer
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
