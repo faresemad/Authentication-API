@@ -115,6 +115,8 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "social_core.backends.google.GoogleOAuth2",
     "social_core.backends.twitter.TwitterOAuth",
+    "social_core.backends.linkedin.LinkedinOAuth2",
+    "social_core.backends.github.GithubOAuth2",
 ]
 
 DJOSER = {
@@ -123,6 +125,8 @@ DJOSER = {
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
         "http://localhost:8000/api/social-auth/complete/google-oauth2/",
         "http://localhost:8000/api/social-auth/complete/twitter/",
+        "http://localhost:8000/api/social-auth/complete/linkedin-oauth2/",
+        "http://localhost:8000/api/social-auth/complete/github/",
     ],
 }
 
@@ -157,3 +161,22 @@ SOCIAL_AUTH_TWITTER_KEY = env("SOCIAL_AUTH_TWITTER_KEY")
 SOCIAL_AUTH_TWITTER_SECRET = env("SOCIAL_AUTH_TWITTER_SECRET")
 
 LOGIN_REDIRECT_URL = "/api/users/account/me/"
+
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = env("SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY")
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = env("SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET")
+
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ["r_liteprofile", "r_emailaddress"]
+# Add the fields so they will be requested from linkedin.
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ["emailAddress"]
+# Arrange to add the fields to UserSocialAuth.extra_data
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+    ("id", "id"),
+    ("firstName", "first_name"),
+    ("lastName", "last_name"),
+    ("emailAddress", "email_address"),
+]
+
+SOCIAL_AUTH_GITHUB_KEY = env("SOCIAL_AUTH_GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = env("SOCIAL_AUTH_GITHUB_SECRET")
+SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
+SOCIAL_AUTH_GITHUB_EXTRA_DATA = ["email"]
