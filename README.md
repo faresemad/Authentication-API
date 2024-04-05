@@ -126,3 +126,39 @@ you can access the social endpoints on your browser by visiting the following UR
                     # ...
                 }
             ```
+
+- GitHub: `http://localhost:8000/api/auth/o/github/?redirect_uri=http://localhost:8000/api/social-auth/complete/github/`
+   - Notes:
+        - You need to set redirect URI in the GitHub Developer Portal to `http://localhost:8000/api/social-auth/complete/github/`
+        - You need to set the following environment variables in the `.env` (this file must be in `.envs/` directory) file:
+            - `SOCIAL_AUTH_GITHUB_KEY`
+            - `SOCIAL_AUTH_GITHUB_SECRET`
+        - You need to set the following Settings in Djoser Settings:
+            ```python
+                DJOSER = {
+                    # ...
+                    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
+                        # ...
+                        "http://localhost:8000/api/social-auth/complete/github/",
+                    ],
+                    # ...
+                }
+            ```
+
+- LinkedIn: `http://localhost:8000/api/auth/o/linkedin-oauth2/?redirect_uri=http://localhost:8000/api/social-auth/complete/linkedin-oauth2/`
+   - Notes:
+        - You need to set redirect URI in the LinkedIn Developer Portal to `http://localhost:8000/api/social-auth/complete/linkedin-oauth2/`
+        - You need to set the following environment variables in the `.env` (this file must be in `.envs/` directory) file:
+            - `SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY`
+            - `SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET`
+        - You need to set the following Settings in Djoser Settings:
+            ```python
+                DJOSER = {
+                    # ...
+                    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
+                        # ...
+                        "http://localhost:8000/api/social-auth/complete/linkedin-oauth2/",
+                    ],
+                    # ...
+                }
+            ```
